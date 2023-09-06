@@ -1,1 +1,1 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+Kužinavanje is a web page for displaying recipes and finding inspiration for cooking and baking on daily basis.
