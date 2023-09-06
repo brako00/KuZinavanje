@@ -1,0 +1,113 @@
+.container{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr auto;
+    grid-column-gap: 20px;
+}
+
+.sastojciContainer{
+    grid-area: 1 / 1 / 3 / 2;
+    background-color: #a6bede;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+.priprema{
+    grid-area: 2 / 2 / 3 / 3;
+    padding: 5px;
+    margin: 0 0 0 10px;
+}
+
+.naslovC{
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+
+
+.sastojci{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.sastojak{
+    padding: 10px 10px 0 15px;
+    margin:0;
+}
+
+.listaSastojaka{
+    list-style-type: disc;
+    list-style-position: inside;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.listaSastojakaLi::marker{
+   color:#e42418;
+}
+
+.ikonaContainer{
+    display:flex;
+    justify-content: center;
+}
+
+.icon{
+    width: 50px;
+    height: 50px;
+}
+
+.naslov{
+    background-color: #c95b67;
+    margin: 0;
+    padding: 5px;
+    border-radius: 10px 0 0 10px;
+}
+
+.img{
+    width: 60%;
+    height: 350px;
+    border-radius: 10px 0 0 10px;
+    margin-top: 10px;
+}
+
+@media screen and (max-width:1000px){
+    .img{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:600px){
+    .container{
+         display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-row-gap: 20px;
+    }
+
+    .naslovC {
+        grid-area: 1 / 1 / 2 / 2; 
+    }
+
+    .naslov{
+        margin-left: 20px;
+        font-size: 27px;
+    }
+
+    .img{
+        border-radius: 0;
+        height: auto;
+    }
+
+    .sastojciContainer{
+        grid-area:  2 / 1 / 3 / 2;
+        margin-right: 20px;
+    }
+
+    .priprema{
+        grid-area: 3 / 1 / 4 / 2;
+    }
+}

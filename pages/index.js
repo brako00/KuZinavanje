@@ -1,115 +1,72 @@
+import Image from 'next/image';
+import React from 'react';
+import Link from 'next/link';
+import styles from '../styles/SviRecepti.module.css'
+import { ReceptCard } from '../src/components/recept-card/recept-card';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+const Recepti_Page = ({kategorije, recepti, rucakRecepti, desertRecepti}) => {
+    return (
+        <div>
+        
+        <div className={styles.welecomeContainer}>
+            <div className={styles.welecomeContainer2}>
+                <h1 className={styles.welecome}>Dobrodošli na našu stranicu!</h1>
+                <p className={styles.welecomeText}>Jako smo uzbuđeni što ste ovdje. Naša misija je inspirirati vas da budete kreativni u kuhinji i isprobate nove stvari. 
+                </p><p className={styles.welecomeText}>Vjerujemo da bi kuhanje i pečenje trebalo biti ugodno i dostupno svima, bez obzira na razinu vještina.</p>
+              </div>
+            <Image className={styles.kuhariImg} src='/kuhari.jpg' alt='kuhari' width={300} height={100}/>
         </div>
-      </main>
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
-        </a>
-      </footer>
+        <h2 className={styles.Predlazemo}>Predlažemo za ručak:</h2>
 
-      <style jsx>{`
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        footer img {
-          margin-left: 0.5rem;
-        }
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-decoration: none;
-          color: inherit;
-        }
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-      `}</style>
+        <div className={styles.recepti}>
+                {rucakRecepti.map(rp=>(
+                    <ReceptCard data={rp} key={rp.id}> </ReceptCard>
+                ))}
+            </div>
 
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
-  )
+
+        <h2 className={styles.Predlazemo}>Predlažemo za desert:</h2>
+
+        <div className={styles.recepti}>
+                {desertRecepti.map(rp=>(
+                    <ReceptCard data={rp} key={rp.id}> </ReceptCard>
+                ))}
+            </div>
+
+
+        </div>
+    );
+};
+
+export default Recepti_Page;
+
+export async function getStaticProps() {
+    const {recepies_categories, allRecepies}=await import('/data/data.json');
+    let rucakRecepti=[];
+    let desertRecepti=[];
+    allRecepies.map(rp=>{
+        if(rp.rucak=="rucak")
+            rucakRecepti.push(rp);
+        if(rp.desert=="desert")
+            desertRecepti.push(rp);
+    });
+
+    rucakRecepti=getRandomItems(rucakRecepti, 5);
+    desertRecepti=getRandomItems(desertRecepti, 5);
+
+   
+    return {
+        props: {
+            kategorije: recepies_categories,
+            recepti: allRecepies,
+            rucakRecepti,
+            desertRecepti
+        },
+    };
+  }
+
+function getRandomItems(array, numberOfItems) {
+    return array.sort(() => 0.5 - Math.random()).slice(0, numberOfItems);
 }

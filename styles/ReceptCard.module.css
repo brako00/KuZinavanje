@@ -1,0 +1,42 @@
+.card{
+    background-color: #8fa0b7;
+    color: #000;
+    border-radius: 10px;
+    text-decoration: none;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card:hover{
+    background-color: #a6bede;
+    color: #fff;
+}
+
+@media screen and (max-width: 550px){
+    .card{
+        width: 100%;
+        margin: 0 10px;
+    }
+}
+    
+
+.img{
+    height: 170px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.naslov{
+    padding: 10px 0;
+    margin: 0;
+}
+
+.icon{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
